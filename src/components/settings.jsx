@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react';
 const Settings = () => {
   const [currency, setCurrency] = useState("USD");
   const [language, setLanguage] = useState("English");
+  const [amountLimit, setAmountLimit] = useState(""); // Amount limit state
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       console.log(`Currency changed to ${currency}`);
       console.log(`Language changed to ${language}`);
+      console.log(`Amount limit set to ${amountLimit}`);
     }, 5000); // Delay for 5 seconds
 
     return () => clearTimeout(timeout); // Cleanup the timeout if the component is unmounted or updated
-  }, [currency, language]); // This effect will run when either currency or language changes
+  }, [currency, language, amountLimit]); // This effect will run when any of these values change
 
   return (
     <div className="container mx-auto p-8 space-y-8">
@@ -109,6 +111,16 @@ const Settings = () => {
                 <option>French</option>
                 <option>German</option>
               </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Amount Limit</label>
+              <input
+                type="number"
+                value={amountLimit}
+                onChange={(e) => setAmountLimit(e.target.value)}
+                placeholder="Set an amount limit"
+                className="w-full mt-1 p-3 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+              />
             </div>
           </div>
         </div>
